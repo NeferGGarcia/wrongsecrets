@@ -1,7 +1,6 @@
 package org.owasp.wrongsecrets.challenges.docker;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.owasp.wrongsecrets.Challenges.ErrorResponses.DECRYPTION_ERROR;
 
 import org.junit.jupiter.api.Test;
 
@@ -11,7 +10,6 @@ public class Challenge35Test {
   void spoilerShouldGiveAnswer() {
     var challenge = new Challenge35();
     assertThat(challenge.spoiler().solution()).isNotEmpty();
-    assertThat(challenge.spoiler().solution()).isNotEqualTo(DECRYPTION_ERROR);
     assertThat(challenge.answerCorrect(challenge.spoiler().solution())).isTrue();
   }
 

@@ -8,7 +8,6 @@ import org.apache.commons.io.FilenameUtils;
 import org.owasp.wrongsecrets.Challenges;
 import org.owasp.wrongsecrets.asciidoc.TemplateGenerator;
 import org.owasp.wrongsecrets.challenges.Challenge;
-import org.owasp.wrongsecrets.challenges.docker.Challenge8;
 import org.owasp.wrongsecrets.definitions.Sources.TextWithFileLocation;
 import org.springframework.boot.context.properties.ConfigurationPropertiesBinding;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
@@ -74,11 +73,7 @@ public class ChallengeConfig {
         "Loaded {} definitions and {} challenges",
         challengeDefinitions.challenges().size(),
         challenges.size());
-    challenges.stream()
-        .filter(challenge -> challenge instanceof Challenge8)
-        .findFirst()
-        .get()
-        .spoiler(); // need early init to log the secret for debugging ;-).
+
     return new Challenges(challengeDefinitions, challenges);
   }
 }

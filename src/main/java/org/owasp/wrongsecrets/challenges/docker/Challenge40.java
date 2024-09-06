@@ -1,7 +1,5 @@
 package org.owasp.wrongsecrets.challenges.docker;
 
-import static org.owasp.wrongsecrets.Challenges.ErrorResponses.DECRYPTION_ERROR;
-
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -62,7 +60,7 @@ public class Challenge40 extends FixedAnswerChallenge {
       return new String(decryptedData, StandardCharsets.UTF_8);
     } catch (Exception e) {
       log.warn("there was an exception with decrypting content in challenge40", e);
-      return DECRYPTION_ERROR;
+      return "error_decryption";
     }
   }
 }

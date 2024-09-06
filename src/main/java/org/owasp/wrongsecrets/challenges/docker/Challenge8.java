@@ -34,13 +34,10 @@ public class Challenge8 extends FixedAnswerChallenge {
 
   @Override
   public String getAnswer() {
-    String answer;
     if (!Strings.isNullOrEmpty(serverCode) && !serverCode.equals("not_set")) {
-      answer = serverCode;
+      return serverCode;
     } else {
-      answer = generateRandomString();
+      return generateRandomString();
     }
-    log.info("Generating random string for challenge 8: {}", answer);
-    return answer;
   }
 }

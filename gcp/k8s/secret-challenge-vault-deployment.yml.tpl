@@ -19,24 +19,7 @@ spec:
     type: RollingUpdate
   template:
     metadata:
-      annotations:
-        vault.hashicorp.com/agent-inject: "true"
-        vault.hashicorp.com/tls-skip-verify: "true"
-        vault.hashicorp.com/namespace: "default"
-        vault.hashicorp.com/log-level: debug
-        vault.hashicorp.com/agent-inject-secret-challenge46: "secret/data/injected"
-        vault.hashicorp.com/agent-inject-template-challenge46: |
-          {{ with secret "/secret/data/injected" }}
-            {{ range $key, $value := .Data.data }}
-              {{ printf "echo %s=%s" $key $value }}
-            {{ end }}
-          {{ end }}
-        vault.hashicorp.com/agent-inject-secret-challenge47: "secret/data/codified"
-        vault.hashicorp.com/agent-inject-template-challenge47: |
-          {{ with secret "secret/data/codified" }}
-              export challenge47secret="isthiswhatweneed?"
-          {{ end }}
-        vault.hashicorp.com/role: "secret-challenge"
+      creationTimestamp: "2020-10-28T20:21:04Z"
       labels:
         app: secret-challenge
       name: secret-challenge
@@ -45,8 +28,6 @@ spec:
         runAsUser: 2000
         runAsGroup: 2000
         fsGroup: 2000
-        seccompProfile:
-            type: RuntimeDefault
       serviceAccountName: vault
       volumes:
         - name: 'ephemeral'
@@ -58,11 +39,9 @@ spec:
             volumeAttributes:
               secretProviderClass: "wrongsecrets-gcp-secretsmanager"
       containers:
-        - image: jeroenwillemsen/wrongsecrets:1.9.1-k8s-vault
+        - image: jeroenwillemsen/wrongsecrets:1.8.4-k8s-vault
           imagePullPolicy: IfNotPresent
           name: secret-challenge
-          command: ["/bin/sh"]
-          args: ["-c", "source /vault/secrets/challenge46 && source /vault/secrets/challenge47 && java -jar -Dspring.profiles.active=kubernetes-vault -Dspringdoc.swagger-ui.enabled=true -Dspringdoc.api-docs.enabled=true -D /application.jar"]
           ports:
             - containerPort: 8080
               protocol: TCP
@@ -119,11 +98,6 @@ spec:
                 secretKeyRef:
                   name: challenge33
                   key: answer
-            - name: SEALED_SECRET_ANSWER
-              valueFrom:
-                secretKeyRef:
-                  name: challenge48secret
-                  key: secret
             - name: SPECIAL_SPECIAL_K8S_SECRET
               valueFrom:
                 secretKeyRef:

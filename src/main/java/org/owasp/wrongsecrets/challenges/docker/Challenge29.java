@@ -1,7 +1,5 @@
 package org.owasp.wrongsecrets.challenges.docker;
 
-import static org.owasp.wrongsecrets.Challenges.ErrorResponses.DECRYPTION_ERROR;
-
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -46,13 +44,7 @@ public class Challenge29 extends FixedAnswerChallenge {
         content = Files.readAllBytes(Paths.get(privateKeyFilePath));
       } catch (IOException e2) {
         log.info("Could not get the file from {}", privateKeyFilePath);
-        privateKeyFilePath = "/var/helpers/RSAprivatekey.pem";
-        try {
-          content = Files.readAllBytes(Paths.get(privateKeyFilePath));
-        } catch (IOException e3) {
-          log.info("Could not get the file from {}", privateKeyFilePath);
-          throw e3;
-        }
+        throw e2;
       }
     }
     String privateKeyContent = new String(content, StandardCharsets.UTF_8);
@@ -79,7 +71,7 @@ public class Challenge29 extends FixedAnswerChallenge {
       return new String(decoded, StandardCharsets.UTF_8);
     } catch (Exception e) {
       log.warn("Exception when decrypting", e);
-      return DECRYPTION_ERROR;
+      return "decrypt_error";
     }
   }
 }

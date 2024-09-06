@@ -1,7 +1,5 @@
 package org.owasp.wrongsecrets.challenges.docker;
 
-import static org.owasp.wrongsecrets.Challenges.ErrorResponses.DECRYPTION_ERROR;
-
 import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
@@ -33,7 +31,7 @@ public class Challenge35 extends FixedAnswerChallenge {
       return decrypt(ciphertext);
     } catch (Exception e) {
       log.warn("there was an exception with decrypting content in challenge35", e);
-      return DECRYPTION_ERROR;
+      return "error_decryption";
     }
   }
 
