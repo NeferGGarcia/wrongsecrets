@@ -29,8 +29,8 @@ profile:
 
 #Specify Qodana linter for analysis (Applied in CI/CD pipeline)
 # linter: jetbrains/qodana-jvm:2024.1-eap
-# linter: jetbrains/qodana-jvm:latest
-linter: jetbrains/qodana-js:latest
+linter: jetbrains/qodana-jvm:latest
+# linter: jetbrains/qodana-js:latest
 
 
 
